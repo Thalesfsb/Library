@@ -6,11 +6,11 @@ namespace Library.Application.Commands
 {
     public class CreateBookCommand : IRequest<ResultViewModel<int>>
     {
-        public CreateBookCommand(string title, string author, string genere, string isbn, int publicationYear)
+        public CreateBookCommand(string title, string author, string genre, string isbn, int publicationYear)
         {
             Title = title;
             Author = author;
-            Genere = genere;
+            Genre = genre;
             ISBN = isbn;
             PublicationYear = publicationYear;
         }
@@ -18,12 +18,12 @@ namespace Library.Application.Commands
         public int Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
-        public string Genere { get; set; }
+        public string Genre { get; set; }
         public string ISBN { get; set; }
         public int PublicationYear { get; set; }
 
         public Book ToEntity()
-            => new(Title, Author, Genere, ISBN, PublicationYear);
+            => new(Title, Author, Genre, ISBN, PublicationYear);
     }
 
     public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, ResultViewModel<int>>
