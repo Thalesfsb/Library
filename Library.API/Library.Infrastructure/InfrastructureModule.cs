@@ -1,4 +1,6 @@
-﻿using Library.Infrastructure.Persistence;
+﻿using Library.Core.Repositories;
+using Library.Infrastructure.Persistence;
+using Library.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +17,9 @@ namespace Library.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddData(configuration);
+            services
+                .AddData(configuration)
+                .AddRepositories();
 
             return services;
         }
@@ -23,6 +27,12 @@ namespace Library.Infrastructure
         {
             var connectionString = configuration.GetConnectionString("LibraryCs");
             services.AddDbContext<LibraryDBContext>(options => options.UseSqlServer(connectionString));
+
+            return services;
+        }
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IBookRepository, BookRepository>();
 
             return services;
         }

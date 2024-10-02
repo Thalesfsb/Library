@@ -2,17 +2,23 @@
 {
     public class Book : BaseEntity
     {
-        public Book(string titulo, string autor, string iSBN, int anoPublicacao)
+        public Book()
         {
-            Titulo = titulo;
-            Autor = autor;
-            ISBN = iSBN;
-            AnoPublicacao = anoPublicacao;
+            
+        }
+        public Book(string titulo, string autor, string genre, string isbn, int publicationYear)
+        {
+            Title = titulo;
+            Author = autor;
+            Genre = genre;
+            ISBN = isbn;
+            PublicationYear = publicationYear;
         }
 
-        public required string Titulo { get; set; }
-        public required string Autor { get; set; }
-        public required string ISBN { get; set; }
-        public int AnoPublicacao { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Genre { get; set; }
+        public string ISBN { get; set; }
+        public int PublicationYear { get; set; }
     }
 }

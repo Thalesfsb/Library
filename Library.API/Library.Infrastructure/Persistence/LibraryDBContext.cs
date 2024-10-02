@@ -7,10 +7,8 @@ namespace Library.Infrastructure.Persistence
     public class LibraryDBContext : DbContext
     {
         public LibraryDBContext(DbContextOptions<LibraryDBContext> options)
-            :base(options)
-        {
-            
-        }
+            : base(options) { }
+
         public DbSet<Book> Books { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

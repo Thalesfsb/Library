@@ -1,9 +1,11 @@
+using Library.Application;
 using Library.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
+    .AddAplication()
     .AddInfrastructure(builder.Configuration);
 
 
