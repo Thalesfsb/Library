@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Library.Application.Commands;
+using Library.Application.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Library.API.Controllers
 {
@@ -6,35 +9,51 @@ namespace Library.API.Controllers
     [ApiController]
     public class LibraryController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public LibraryController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         // POST api/library
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post(CreateBookCommand command)
         {
-            return null;
+            var result = await _mediator.Send(command);
+
+            if(!result.IsSuccess)
+                return BadRequest(result.Message);
+
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, result);
         }
 
         // GET api/library
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return null;
+            var result = await _mediator.Send(new GetAllBooksQuery());
+
+            if (!result.IsSuccess)
+                return NotFound(result.Message);
+
+            return Ok(result);
         }
 
         // GET api/library/1234
-        [HttpGet("api/library/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             return null;
         }
 
         // PUT api/library
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id)
         {
             return null;
         }
         // DELETE api/library/1234
-        [HttpDelete("api/library/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             return null;

@@ -18,7 +18,7 @@ namespace Library.Application.ViewModel
         public bool IsSuccess { get; private set; }
         public string Message { get; private set; }
 
-        public static ResultViewModel Success()
+        public static ResultViewModel Success(Task<IEnumerable<Core.Entities.Book>> books)
             => new();
         public static ResultViewModel Error(string message)
             => new(false, message);
